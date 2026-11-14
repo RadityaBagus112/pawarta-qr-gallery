@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pawarta.Id — Shared Event QR Gallery</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Kilatan Shutter Kamera -->
+  <div class="camera-flash" id="cameraFlash"></div>
+
+  <!-- HERO LANGIT BIRU CERAH -->
+  <header class="hero-sky" id="home">
+    <div class="sky-sun-glow"></div>
+
+    <!-- Partikel Cahaya & Kelopak Melayang di Langit -->
+    <div class="sky-particles" aria-hidden="true">
+      <span class="particle p1"></span>
+      <span class="particle p2"></span>
+      <span class="particle p3"></span>
+      <span class="particle p4"></span>
+      <span class="particle p5"></span>
+      <span class="particle p6"></span>
+    </div>
+
+    <nav class="navbar">
+      <a href="#home" class="brand">
+        <!-- Logo Cincin Ganda + Hati -->
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="15" cy="23" r="9" stroke="white" stroke-width="2.5"/>
+          <circle cx="25" cy="23" r="9" stroke="white" stroke-width="2.5"/>
+          <path class="brand-heart" d="M20 12C20 12 16 8.8 16 6.5C16 5.1 17.1 4 18.5 4C19.3 4 20 4.5 20 4.5C20 4.5 20.7 4 21.5 4C22.9 4 24 5.1 24 6.5C24 8.8 20 12 20 12Z" fill="white"/>
+        </svg>
+        <div>
+          <div class="brand-title">Pawarta.Id</div>
+          <div class="brand-sub">Wedding Moments</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#home" class="active">Home</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#info">Event Info</a>
+        <button class="btn-scarlet" onclick="document.getElementById('gallery').scrollIntoView()">
+          Open Gallery &rarr;
+        </button>
+      </div>
+    </nav>
+
+    <div class="hero-container">
+      <div>
+        <div class="event-pill reveal-1">
+          <span class="pulse-dot"></span>
+          <span id="eventBadgeTitle">Our Wedding Event</span>
+        </div>
+
+        <h1 class="hero-title reveal-2">
+          Shared Event<br>
+          <span class="hero-title-accent">QR Gallery</span>
+        </h1>
+
+        <div class="hero-edition reveal-3">
+          <span>Wedding Edition</span>
+          <span class="hero-edition-line"></span>
+        </div>
+
+        <p class="hero-desc reveal-4">
+          Abadikan momen terbaik dari sudut pandangmu dan bagikan langsung ke album pernikahan kami secara real-time. &#10084;
+        </p>
+      </div>
+
+      <div class="hero-couple-wrap">
+        <!-- Doodle Putih Melayang di Sekitar Foto -->
+        <svg class="hero-doodle-sparkle" width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <path d="M22 4V14M22 30V40M4 22H14M30 22H40" stroke="white" stroke-width="2.8" stroke-linecap="round"/>
+        </svg>
+
+        <img
+          src="img/image1.png"
+          alt="Wedding Couple"
+          class="hero-couple-img"
+        />
+      </div>
+    </div>
+
+    <!-- Lapisan Awan Putih Berlapis Bergerak Paralaks + Aksen Pita Merah Scarlet -->
+    <svg class="cloud-floor" viewBox="0 0 1440 150" fill="none" preserveAspectRatio="none">
+      <!-- Lapisan Awan Belakang -->
+      <path class="cloud-back" d="M-40 105C60 55 170 68 260 98C350 42 470 48 560 92C650 38 780 42 870 92C970 42 1100 48 1190 95C1280 58 1390 68 1480 105V150H-40V105Z" fill="rgba(255,255,255,0.58)"/>
+      <!-- Aksen Pita Merah Scarlet di Sudut Kiri & Kanan Bawah -->
+      <path class="ribbon-left" d="M-20 125C65 102 155 112 245 142L190 150H-20V125Z" fill="#EF233C"/>
+      <path class="ribbon-right" d="M1460 120C1365 98 1275 112 1185 144L1240 150H1460V120Z" fill="#EF233C"/>
+      <!-- Lapisan Awan Depan -->
+      <path class="cloud-front" d="M-40 122C90 78 210 88 320 116C420 68 550 74 650 116C760 68 890 74 1000 116C1120 74 1280 84 1480 120V150H-40V122Z" fill="#FFFFFF"/>
+    </svg>
+  </header>
+
+  <!-- FLOATING WHITE ACTION PILL BAR -->
+  <section class="floating-bar-wrapper">
+    <div class="floating-pill-card" id="floatingActionCard">
+      <!-- Doodle Merah Scarlet di Sudut Kanan Atas -->
+      <svg class="doodle-scarlet" width="38" height="38" viewBox="0 0 36 36" fill="none">
+        <path d="M6 18L14 6M15 22L28 13M20 29L32 26" stroke="#EF233C" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+
+      <!-- Tombol 1: Kamera Langsung -->
+      <button class="action-tile action-tile-divider" id="btnCamera" type="button">
+        <div class="icon-box-sky">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tile-title">Ambil Foto Langsung</span>
+          <span class="tile-sub">Buka kamera HP & jepret momen</span>
+        </div>
+      </button>
+
+      <!-- Tombol 2: Pilih dari Galeri -->
+      <button class="action-tile" id="btnGalleryPicker" type="button">
+        <div class="icon-box-sky">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+        </div>
+        <div>
+          <span class="tile-title">Upload dari Galeri</span>
+          <span class="tile-sub" id="quotaHintText">Sisa kuota: 3 foto</span>
+        </div>
+      </button>
+
+      <!-- Tombol 3: View Gallery (Merah Scarlet) -->
+      <button class="btn-scarlet" type="button" onclick="document.getElementById('gallery').scrollIntoView()">
+        View Gallery &rarr;
+      </button>
+    </div>
+
+    <!-- Hidden File Inputs -->
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden />
+    <input type="file" id="galleryInput" accept="image/*" hidden />
+  </section>
+
+  <!-- HIGHLIGHTS BAR -->
+  <section class="highlights-section scroll-reveal" id="info">
+    <div class="highlights-grid">
+      <div class="highlight-item">
+        <div class="icon-box-sky icon-sm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <strong class="hl-title">Our Moments</strong>
+          <span class="hl-sub">Captured with love</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="icon-box-sky icon-sm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#127CE3">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div>
+          <strong class="hl-title">Your Presence</strong>
+          <span class="hl-sub">Makes it special</span>
+        </div>
+      </div>
+
+      <div class="highlight-item">
+        <div class="icon-box-sky icon-sm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+        </div>
+        <div>
+          <strong class="hl-title">Last Forever</strong>
+          <span class="hl-sub">Auto-sync Google Drive</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="heart-divider">
+      <span></span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF233C">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+      <span></span>
+    </div>
+    <p class="thank-you-caption">Thank you for being part of our journey &#10084;</p>
+  </section>
+
+  <!-- LIVE GALLERY GRID -->
+  <main class="gallery-section scroll-reveal" id="gallery">
+    <div class="gallery-toolbar">
+      <div>
+        <div class="live-indicator-row">
+          <span class="live-dot-scarlet"></span>
+          <h2 class="gallery-heading">Live Wedding Gallery</h2>
+        </div>
+        <p class="gallery-sub" id="totalPhotosLabel">Memuat momen tamu...</p>
+      </div>
+
+      <div class="toolbar-right">
+        <div class="quota-badge" id="quotaPill">
+          Kuota Kamu: 0 / 3 Foto
+        </div>
+      </div>
+    </div>
+
+    <div class="masonry-grid" id="galleryGrid"></div>
+  </main>
+
+  <!-- FOOTER BRAND PAWARTA.ID -->
+  <footer class="pawarta-footer">
+    <!-- Wave Top Awan -->
+    <svg class="footer-wave" viewBox="0 0 1440 70" fill="none" preserveAspectRatio="none">
+      <path d="M0 0H1440V32C1320 65 1180 65 1060 36C940 8 810 8 690 38C570 68 430 68 310 38C190 8 80 12 0 35V0Z" fill="#FFFFFF"/>
+    </svg>
+
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <!-- Kolom 1: Identitas Brand -->
+        <div class="footer-brand-col">
+          <a href="#home" class="brand">
+            <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
+              <circle cx="15" cy="23" r="9" stroke="white" stroke-width="2.5"/>
+              <circle cx="25" cy="23" r="9" stroke="white" stroke-width="2.5"/>
+              <path class="brand-heart" d="M20 12C20 12 16 8.8 16 6.5C16 5.1 17.1 4 18.5 4C19.3 4 20 4.5 20 4.5C20 4.5 20.7 4 21.5 4C22.9 4 24 5.1 24 6.5C24 8.8 20 12 20 12Z" fill="white"/>
+            </svg>
+            <div>
+              <div class="brand-title">Pawarta.Id</div>
+              <div class="brand-sub">Shared Event QR Gallery</div>
+            </div>
+          </a>
+          <p class="footer-tagline">
+            Platform galeri foto interaktif berbasis QR Code untuk pernikahan dan acara spesial. Tanpa instal aplikasi, resolusi tajam, dan tersinkronisasi otomatis ke Google Drive.
+          </p>
+          <div class="footer-pill-status">
+            <span class="pulse-dot"></span>
+            <span>Cloud Sync &amp; 30-Day Archive Active</span>
+          </div>
+        </div>
+
+        <!-- Kolom 2: Navigasi Cepat -->
+        <div>
+          <h4 class="footer-heading">Navigasi Acara</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Beranda Utama</a></li>
+            <li><a href="#gallery">Galeri Momen Tamu</a></li>
+            <li><a href="#info">Informasi Acara</a></li>
+            <li><a href="#" onclick="document.getElementById('btnCamera').click(); return false;">Ambil Foto Sekarang</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom 3: Info Brand & Pemesanan -->
+        <div>
+          <h4 class="footer-heading">Ingin Pakai untuk Acaramu?</h4>
+          <p class="footer-cta-text">
+            Hadirkan pengalaman berbagi foto instan di setiap meja tamu undangan pernikahanmu bersama <strong>Pawarta.Id</strong>.
+          </p>
+          <a href="https://pawarta.radityabagus.store" target="_blank" rel="noopener" class="btn-scarlet footer-cta-btn">
+            Pesan Paket Pawarta &rarr;
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 <strong>Pawarta.Id</strong> &mdash; All Rights Reserved.</span>
+        <span class="footer-credit">Crafted with <span style="color:#EF233C;">&#10084;</span> by <strong>Pawarta Digital Studio</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL PREVIEW & CAPTION SEBELUM UPLOAD -->
+  <div class="modal-backdrop" id="uploadModal">
+    <div class="modal-card">
+      <div class="modal-header-row">
+        <div>
+          <h3 class="modal-title">Kirim Foto ke Galeri</h3>
+          <p class="modal-subtitle" id="compressionInfo">Mengoptimalkan gambar ke format WebP HD...</p>
+        </div>
+        <button type="button" class="modal-close-x" id="btnCloseX" aria-label="Tutup">&times;</button>
+      </div>
+
+      <div class="preview-frame">
+        <img id="previewImg" src="" alt="Preview" />
+        <span class="webp-badge">WEBP HD</span>
+      </div>
+
+      <label class="field-label">Nama Kamu</label>
+      <input type="text" id="guestNameInput" class="input-field" placeholder="Contoh: Budi Santoso" maxlength="40" />
+
+      <label class="field-label">Ucapan Singkat (Opsional)</label>
+      <input type="text" id="guestCaptionInput" class="input-field" placeholder="Selamat menempuh hidup baru!" maxlength="100" />
+
+      <div class="modal-actions">
+        <button type="button" id="btnCancelUpload" class="btn-ghost">Batal</button>
+        <button type="button" id="btnConfirmUpload" class="btn-scarlet">Publish Foto &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL LIGHTBOX FOTO FULL HD -->
+  <div class="modal-backdrop" id="lightboxModal">
+    <div class="lightbox-card">
+      <button type="button" class="lightbox-close" id="btnCloseLightbox">&times;</button>
+      <img id="lightboxImg" src="" alt="Full Photo" />
+      <div class="lightbox-info">
+        <strong id="lightboxGuest"></strong>
+        <p id="lightboxCaption"></p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

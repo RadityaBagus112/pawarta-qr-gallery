@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pawarta.Id — Host & Event Console</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <style>
+    .admin-hero {
+      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 100%);
+      color: var(--white);
+      padding: 24px 24px 72px;
+    }
+    .admin-wrap {
+      max-width: 1120px;
+      margin: -44px auto 80px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+    .panel-card {
+      background: var(--white);
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 20px 50px -15px rgba(18, 124, 227, 0.16);
+      border: 1px solid var(--border-light);
+    }
+    .qr-preview-box {
+      background: var(--sky-tint);
+      border: 2px dashed #7DD3FC;
+      border-radius: 22px;
+      padding: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #qrContainer {
+      background: var(--white);
+      padding: 16px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      margin: 14px 0;
+    }
+    .btn-sky {
+      background: var(--sky-top);
+      color: var(--white);
+      border: none;
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .admin-photo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    @media (max-width: 860px) {
+      .admin-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="admin-hero">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+      <div class="brand">
+        <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+          <circle cx="15" cy="23" r="9" stroke="white" stroke-width="2.5"/>
+          <circle cx="25" cy="23" r="9" stroke="white" stroke-width="2.5"/>
+          <path d="M20 12C20 12 16 8.8 16 6.5C16 5.1 17.1 4 18.5 4C19.3 4 20 4.5 20 4.5C20 4.5 20.7 4 21.5 4C22.9 4 24 5.1 24 6.5C24 8.8 20 12 20 12Z" fill="white"/>
+        </svg>
+        <div>
+          <div class="brand-title">Pawarta.Id — Host Console</div>
+          <div class="brand-sub">Event Generator, QR Code & Drive Sync Manager</div>
+        </div>
+      </div>
+
+      <a id="openGuestPageBtn" href="index.html" target="_blank" class="btn-scarlet" style="text-decoration:none;">
+        Buka Halaman Tamu &rarr;
+      </a>
+    </div>
+  </header>
+
+  <main class="admin-wrap">
+    <!-- KOLOM KIRI: SETUP ACARA KLIEN -->
+    <section class="panel-card">
+      <div class="event-pill" style="background:var(--sky-tint);color:var(--sky-top);margin-bottom:12px;">
+        <span class="pulse-dot"></span> Setup & Konfigurasi Acara
+      </div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:6px;">Buat / Edit Acara Pengantin</h2>
+      <p style="font-size:0.84rem;color:var(--ink-muted);margin-bottom:18px;">
+        Atur kuota paket tamu dan tautkan Folder ID Google Drive klien untuk backup otomatis 30 hari.
+      </p>
+
+      <label style="font-size:0.82rem;font-weight:700;">Slug URL Acara (Huruf kecil tanpa spasi)</label>
+      <input type="text" id="slugInput" class="input-field" placeholder="contoh: rina-dimas-2026" />
+
+      <label style="font-size:0.82rem;font-weight:700;">Judul Acara / Nama Pasangan</label>
+      <input type="text" id="titleInput" class="input-field" placeholder="contoh: The Wedding of Rina & Dimas" />
+
+      <label style="font-size:0.82rem;font-weight:700;">Pilih Paket Kuota Foto per Tamu</label>
+      <select id="packageSelect" class="input-field">
+        <option value="standard">Paket Standar — Maks. 3 Foto / Tamu</option>
+        <option value="plus">Paket Plus — Maks. 5 Foto / Tamu</option>
+        <option value="max">Paket Max — Maks. 10 Foto / Tamu</option>
+      </select>
+
+      <label style="font-size:0.82rem;font-weight:700;">Link atau ID Folder Google Drive Klien</label>
+      <input type="text" id="driveFolderInput" class="input-field" placeholder="Tempel link folder Drive atau Folder ID-nya..." />
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+        <button type="button" id="btnSaveEvent" class="btn-scarlet">
+          Simpan & Generate QR &rarr;
+        </button>
+        <button type="button" id="btnLoadEvent" class="btn-sky">
+          Muat Data Slug Ini
+        </button>
+      </div>
+
+      <hr style="border:none;border-top:1px solid var(--border-light);margin:24px 0;" />
+
+      <!-- MODERASI & DOWNLOAD ZIP -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <div>
+          <h3 style="font-size:1.05rem;font-weight:800;">Galeri Masuk (<span id="adminPhotoCount">0</span>)</h3>
+          <span style="font-size:0.78rem;color:var(--ink-muted);">Auto-sync ke Google Drive aktif</span>
+        </div>
+        <button type="button" id="btnDownloadZip" class="btn-sky">
+          Download Semua (.ZIP)
+        </button>
+      </div>
+
+      <div id="adminPhotoList" style="max-height:320px;overflow-y:auto;"></div>
+    </section>
+
+    <!-- KOLOM KANAN: KARTU QR SIAP CETAK -->
+    <aside class="panel-card">
+      <h2 style="font-size:1.25rem;font-weight:800;margin-bottom:4px;">Kartu QR Meja Tamu</h2>
+      <p style="font-size:0.84rem;color:var(--ink-muted);margin-bottom:18px;">
+        Unduh QR Code di bawah ini untuk ditempel pada desain kartu meja / akrilik pernikahan.
+      </p>
+
+      <div class="qr-preview-box">
+        <span style="font-size:0.75rem;font-weight:800;letter-spacing:0.12em;color:var(--sky-top);text-transform:uppercase;">
+          Pawarta.Id • Scan & Share Moments
+        </span>
+        <div id="qrContainer"></div>
+        <strong id="qrEventTitleDisplay" style="font-size:1rem;color:var(--ink);">The Wedding Event</strong>
+        <p id="qrUrlDisplay" style="font-size:0.75rem;color:var(--ink-muted);word-break:break-all;margin-top:4px;"></p>
+
+        <button type="button" id="btnDownloadQr" class="btn-scarlet" style="margin-top:18px;">
+          Unduh QR Code (PNG)
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, set, get, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { APP_CONFIG } from "./js/config.js";
+
+    const app = initializeApp(APP_CONFIG.firebaseConfig);
+    const db = getDatabase(app);
+
+    const slugInput = document.getElementById("slugInput");
+    const titleInput = document.getElementById("titleInput");
+    const packageSelect = document.getElementById("packageSelect");
+    const driveFolderInput = document.getElementById("driveFolderInput");
+    const btnSaveEvent = document.getElementById("btnSaveEvent");
+    const btnLoadEvent = document.getElementById("btnLoadEvent");
+    const qrContainer = document.getElementById("qrContainer");
+    const qrUrlDisplay = document.getElementById("qrUrlDisplay");
+    const qrEventTitleDisplay = document.getElementById("qrEventTitleDisplay");
+    const btnDownloadQr = document.getElementById("btnDownloadQr");
+    const openGuestPageBtn = document.getElementById("openGuestPageBtn");
+    const adminPhotoList = document.getElementById("adminPhotoList");
+    const adminPhotoCount = document.getElementById("adminPhotoCount");
+    const btnDownloadZip = document.getElementById("btnDownloadZip");
+
+    let currentPhotos = [];
+    let unsubscribePhotos = null;
+
+    // Ekstrak otomatis Folder ID jika user menempelkan URL lengkap Google Drive
+    function extractDriveFolderId(raw) {
+      const trimmed = raw.trim();
+      const match = trimmed.match(/folders\/([a-zA-Z0-9_-]+)/);
+      return match ? match[1] : trimmed;
+    }
+
+    function getPublicEventUrl(slug) {
+      const base = window.location.href.replace(/admin\.html.*$/, "index.html");
+      return `${base}?e=${encodeURIComponent(slug)}`;
+    }
+
+    function renderQr(slug, title) {
+      const targetUrl = getPublicEventUrl(slug);
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: targetUrl,
+        width: 210,
+        height: 210,
+        colorDark: "#0F172A",
+        colorLight: "#FFFFFF",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+      qrUrlDisplay.textContent = targetUrl;
+      qrEventTitleDisplay.textContent = title;
+      openGuestPageBtn.href = targetUrl;
+    }
+
+    function listenEventPhotos(slug) {
+      if (unsubscribePhotos) unsubscribePhotos();
+      const photosRef = ref(db, `events/${slug}/photos`);
+      unsubscribePhotos = onValue(photosRef, (snap) => {
+        adminPhotoList.innerHTML = "";
+        currentPhotos = [];
+        if (!snap.exists()) {
+          adminPhotoCount.textContent = "0";
+          adminPhotoList.innerHTML = `<p style="font-size:0.82rem;color:var(--ink-muted);padding:12px 0;">Belum ada foto yang diunggah tamu.</p>`;
+          return;
+        }
+        const entries = Object.entries(snap.val()).map(([id, val]) => ({ id, ...val }));
+        currentPhotos = entries;
+        adminPhotoCount.textContent = String(entries.length);
+
+        entries.reverse().forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "admin-photo-row";
+          row.innerHTML = `
+            <div style="display:flex;align-items:center;gap:10px;">
+              <img src="${item.thumbUrl}" style="width:46px;height:46px;border-radius:10px;object-fit:cover;" />
+              <div>
+                <strong style="font-size:0.84rem;display:block;">${item.guestName || "Tamu"}</strong>
+                <span style="font-size:0.75rem;color:var(--ink-muted);">${item.caption || "Tanpa ucapan"}</span>
+              </div>
+            </div>
+            <button data-id="${item.id}" style="background:#FEE2E2;color:#EF233C;border:none;border-radius:10px;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;">
+              Hapus
+            </button>
+          `;
+          row.querySelector("button").addEventListener("click", async () => {
+            if (confirm("Hapus foto ini dari galeri publik?")) {
+              await remove(ref(db, `events/${slug}/photos/${item.id}`));
+            }
+          });
+          adminPhotoList.appendChild(row);
+        });
+      });
+    }
+
+    btnSaveEvent.addEventListener("click", async () => {
+      const slug = slugInput.value.trim().toLowerCase().replace(/[^a-z0-9-]/g, "-");
+      const title = titleInput.value.trim() || "Our Wedding Event";
+      const packageTier = packageSelect.value;
+      const driveFolderId = extractDriveFolderId(driveFolderInput.value);
+
+      if (!slug) return alert("Isi Slug URL acara terlebih dahulu!");
+
+      slugInput.value = slug;
+      driveFolderInput.value = driveFolderId;
+
+      await set(ref(db, `events/${slug}/config`), {
+        title,
+        packageTier,
+        driveFolderId,
+        active: true,
+        updatedAt: Date.now()
+      });
+
+      renderQr(slug, title);
+      listenEventPhotos(slug);
+      alert("Acara berhasil disimpan & QR Code siap diunduh!");
+    });
+
+    btnLoadEvent.addEventListener("click", async () => {
+      const slug = slugInput.value.trim().toLowerCase();
+      if (!slug) return alert("Masukkan slug acara yang ingin dimuat.");
+
+      const snap = await get(ref(db, `events/${slug}/config`));
+      if (!snap.exists()) return alert("Data acara tidak ditemukan.");
+
+      const data = snap.val();
+      titleInput.value = data.title || "";
+      packageSelect.value = data.packageTier || "standard";
+      driveFolderInput.value = data.driveFolderId || "";
+      renderQr(slug, data.title || slug);
+      listenEventPhotos(slug);
+    });
+
+    btnDownloadQr.addEventListener("click", () => {
+      const canvas = qrContainer.querySelector("canvas");
+      if (!canvas) return alert("Buat atau muat acara terlebih dahulu.");
+      const link = document.createElement("a");
+      link.download = `QR-Pawarta-${slugInput.value || "event"}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+
+    btnDownloadZip.addEventListener("click", async () => {
+      if (!currentPhotos.length) return alert("Belum ada foto untuk diunduh.");
+      btnDownloadZip.disabled = true;
+      btnDownloadZip.textContent = "Membungkus ZIP...";
+
+      try {
+        const zip = new JSZip();
+        const folder = zip.folder(slugInput.value || "wedding-gallery");
+
+        await Promise.all(
+          currentPhotos.map(async (photo, idx) => {
+            const res = await fetch(photo.fullUrl);
+            const blob = await res.blob();
+            const safeName = (photo.guestName || "Tamu").replace(/[^a-z0-9]/gi, "_");
+            folder.file(`${String(idx + 1).padStart(3, "0")}_${safeName}.webp`, blob);
+          })
+        );
+
+        const content = await zip.generateAsync({ type: "blob" });
+        saveAs(content, `Pawarta-${slugInput.value || "Gallery"}.zip`);
+      } catch (err) {
+        alert("Gagal membuat ZIP: " + err.message);
+      } finally {
+        btnDownloadZip.disabled = false;
+        btnDownloadZip.textContent = "Download Semua (.ZIP)";
+      }
+    });
+
+    // Inisialisasi default
+    slugInput.value = APP_CONFIG.defaultEventSlug;
+    titleInput.value = "The Wedding of Andi & Sinta";
+    renderQr(APP_CONFIG.defaultEventSlug, "The Wedding of Andi & Sinta");
+    listenEventPhotos(APP_CONFIG.defaultEventSlug);
+  </script>
+</body>
+</html>
