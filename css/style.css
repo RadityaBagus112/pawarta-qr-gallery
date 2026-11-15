@@ -1147,18 +1147,27 @@ body {
     font-size: 0.8rem;
   }
 
-  /* Hero section presisi di tengah */
+  /* Hero section terkunci presisi di tengah layar HP */
   .hero-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 10px 20px 0;
-    gap: 18px;
-  }
-
-  .hero-text-col {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 20px 0;
+    gap: 18px;
+    overflow: hidden;
+  }
+
+  .hero-text-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .event-pill {
@@ -1166,11 +1175,17 @@ body {
   }
 
   .hero-title {
+    width: 100%;
     font-size: 2.45rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-edition {
+    width: 100%;
     justify-content: center;
+    text-align: center;
     font-size: 1.55rem;
     gap: 12px;
   }
@@ -1183,17 +1198,21 @@ body {
     margin: 0 auto;
     font-size: 0.92rem;
     max-width: 340px;
+    text-align: center;
   }
 
-  /* Foto pengantin full edge-to-edge di layar HP */
+  /* Foto pengantin penuh & terpusat tanpa menarik lebar halaman ke kanan */
   .hero-couple-wrap {
+    width: 100%;
     margin-top: 6px;
+    display: flex;
     justify-content: center;
   }
 
   .hero-couple-img {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    width: 112%;
+    max-width: 480px;
+    margin-left: 0;
     height: 360px;
     margin-bottom: -30px;
   }
