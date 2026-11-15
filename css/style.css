@@ -23,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
   background-color: var(--white);
   color: var(--ink);
   overflow-x: hidden;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -110,7 +112,7 @@ body {
 .navbar {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 22px 24px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -127,7 +129,7 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
   text-decoration: none;
   color: var(--white);
   transition: transform 0.28s var(--spring);
@@ -150,14 +152,14 @@ body {
 }
 
 .brand-title {
-  font-size: 1.28rem;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
 .brand-sub {
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 500;
   opacity: 0.9;
 }
@@ -201,6 +203,7 @@ body {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   text-decoration: none;
   box-shadow: 0 10px 24px -6px rgba(239, 35, 60, 0.55);
@@ -292,16 +295,17 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+  font-size: clamp(2.5rem, 5.2vw, 4.4rem);
   font-weight: 800;
-  line-height: 1.04;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 10px;
 }
 
 .hero-edition {
-  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  font-size: clamp(1.65rem, 3.2vw, 2.5rem);
   font-weight: 400;
+  color: var(--white);
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
@@ -311,7 +315,7 @@ body {
 
 .hero-edition-line {
   height: 1.5px;
-  width: 96px;
+  width: 90px;
   background: rgba(255, 255, 255, 0.8);
   transform-origin: left;
   animation: lineExpand 0.95s var(--spring) 0.42s both;
@@ -329,7 +333,7 @@ body {
   opacity: 0.95;
 }
 
-/* --- HERO COUPLE FULL SEAMLESS (TANPA BOX / KEPOTONG PINGGIR) --- */
+/* --- HERO COUPLE FULL SEAMLESS --- */
 .hero-couple-wrap {
   position: relative;
   display: flex;
@@ -439,14 +443,10 @@ body {
   transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring);
 }
 
-.floating-pill-card:hover {
-  box-shadow: 0 32px 68px -12px rgba(18, 124, 227, 0.3);
-}
-
 .doodle-scarlet {
   position: absolute;
   top: -22px;
-  right: -12px;
+  right: -10px;
   pointer-events: none;
   animation: doodleWiggle 2.4s ease-in-out infinite;
 }
@@ -525,6 +525,108 @@ body {
   color: var(--ink-muted);
   display: block;
   margin-top: 2px;
+}
+
+/* --- FLOATING POPUP CAMERA DOCK (FAB) --- */
+.floating-cam-dock {
+  position: fixed;
+  bottom: 24px;
+  right: 22px;
+  z-index: 85;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  animation: fabSlideIn 0.8s var(--spring) 0.7s both;
+}
+
+@keyframes fabSlideIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.85); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cam-popup-bubble {
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.26);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  animation: bubbleBounce 2.6s ease-in-out infinite;
+}
+
+.cam-popup-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  right: 24px;
+  border-width: 6px 6px 0;
+  border-style: solid;
+  border-color: var(--ink) transparent transparent;
+}
+
+.bubble-close {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--white);
+  border: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@keyframes bubbleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.fab-camera-btn {
+  position: relative;
+  background: linear-gradient(135deg, var(--scarlet) 0%, #D90429 100%);
+  color: var(--white);
+  border: 2.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 14px 32px -4px rgba(239, 35, 60, 0.65);
+  transition: transform 0.3s var(--spring), box-shadow 0.3s;
+}
+
+.fab-camera-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 20px 38px -4px rgba(239, 35, 60, 0.78);
+}
+
+.fab-camera-btn:active {
+  transform: scale(0.95);
+}
+
+.fab-pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 2.5px solid var(--scarlet);
+  opacity: 0;
+  pointer-events: none;
+  animation: fabRingPulse 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+@keyframes fabRingPulse {
+  0% { transform: scale(0.96); opacity: 0.8; }
+  100% { transform: scale(1.24); opacity: 0; }
 }
 
 /* --- SCROLL REVEAL UTILITY --- */
@@ -752,7 +854,7 @@ body {
 .footer-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 36px 24px 28px;
+  padding: 36px 24px 96px;
 }
 
 .footer-grid {
@@ -1022,21 +1124,229 @@ body {
   margin-top: 4px;
 }
 
-/* --- RESPONSIVE --- */
+/* ============================================================
+   MOBILE PRECISION & CENTERED LAYOUT (<= 860px)
+   ============================================================ */
 @media (max-width: 860px) {
-  .nav-links a { display: none; }
-  .hero-container { grid-template-columns: 1fr; text-align: center; }
-  .hero-edition { justify-content: center; }
-  .hero-desc { margin: 0 auto; }
-  .hero-couple-wrap { margin-top: 10px; }
+  .hero-sky {
+    padding-bottom: 110px;
+  }
+
+  /* Navbar rapi & center-friendly */
+  .navbar {
+    padding: 16px 18px;
+    justify-content: space-between;
+  }
+
+  .nav-links a {
+    display: none;
+  }
+
+  .nav-cta-btn {
+    padding: 9px 16px;
+    font-size: 0.8rem;
+  }
+
+  /* Hero section presisi di tengah */
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 10px 20px 0;
+    gap: 18px;
+  }
+
+  .hero-text-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event-pill {
+    margin: 0 auto 16px;
+  }
+
+  .hero-title {
+    font-size: 2.45rem;
+  }
+
+  .hero-edition {
+    justify-content: center;
+    font-size: 1.55rem;
+    gap: 12px;
+  }
+
+  .hero-edition-line {
+    width: 48px;
+  }
+
+  .hero-desc {
+    margin: 0 auto;
+    font-size: 0.92rem;
+    max-width: 340px;
+  }
+
+  /* Foto pengantin full edge-to-edge di layar HP */
+  .hero-couple-wrap {
+    margin-top: 6px;
+    justify-content: center;
+  }
+
   .hero-couple-img {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    height: 400px;
-    margin-bottom: -35px;
+    height: 360px;
+    margin-bottom: -30px;
   }
-  .floating-pill-card { grid-template-columns: 1fr; padding: 18px; }
-  .action-tile-divider { border-right: none; border-bottom: 1px solid var(--border-light); padding-bottom: 14px; }
-  .highlights-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+
+  /* Floating White Action Pill Bar simetris di tengah */
+  .floating-bar-wrapper {
+    margin-top: -54px;
+    padding: 0 16px;
+  }
+
+  .floating-pill-card {
+    grid-template-columns: 1fr;
+    padding: 18px 16px;
+    border-radius: 26px;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .doodle-scarlet {
+    top: -18px;
+    right: 6px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .action-tile {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 12px;
+    gap: 10px;
+    background: var(--sky-tint);
+    border-radius: 20px;
+  }
+
+  .action-tile-divider {
+    border-right: none;
+    border-bottom: none;
+    padding-bottom: 14px;
+  }
+
+  .action-tile .icon-box-sky {
+    background: var(--white);
+    box-shadow: 0 6px 16px rgba(18, 124, 227, 0.12);
+  }
+
+  .action-view-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.92rem;
+  }
+
+  /* Highlights bar tersusun rapi & simetris di tengah */
+  .highlights-section {
+    margin: 34px auto 18px;
+    padding: 0 18px;
+  }
+
+  .highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .highlight-item {
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px;
+    background: #F8FAFC;
+    border: 1px solid var(--border-light);
+  }
+
+  /* Live Gallery 2 kolom rapi di mobile */
+  .gallery-section {
+    margin: 36px auto 64px;
+    padding: 0 16px;
+  }
+
+  .gallery-toolbar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .live-indicator-row {
+    justify-content: center;
+  }
+
+  .masonry-grid {
+    columns: 2 140px;
+    column-gap: 12px;
+  }
+
+  .photo-card {
+    margin-bottom: 12px;
+    border-radius: 16px;
+  }
+
+  .photo-meta {
+    padding: 10px 11px;
+  }
+
+  /* Floating Camera Popup FAB posisi optimal jempol di mobile */
+  .floating-cam-dock {
+    bottom: 18px;
+    right: 16px;
+    left: 16px;
+    align-items: center;
+  }
+
+  .fab-camera-btn {
+    width: auto;
+    padding: 13px 24px;
+    font-size: 0.92rem;
+  }
+
+  .cam-popup-bubble::after {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  /* Footer rata tengah di mobile */
+  .footer-inner {
+    padding: 28px 20px 96px;
+    text-align: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    justify-items: center;
+  }
+
+  .footer-brand-col,
+  .footer-nav-col,
+  .footer-cta-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-tagline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 6px;
+  }
 }

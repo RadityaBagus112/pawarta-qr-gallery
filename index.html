@@ -28,12 +28,12 @@
     <nav class="navbar">
       <a href="#home" class="brand">
         <!-- Logo Cincin Ganda + Hati -->
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
           <circle cx="15" cy="23" r="9" stroke="white" stroke-width="2.5"/>
           <circle cx="25" cy="23" r="9" stroke="white" stroke-width="2.5"/>
           <path class="brand-heart" d="M20 12C20 12 16 8.8 16 6.5C16 5.1 17.1 4 18.5 4C19.3 4 20 4.5 20 4.5C20 4.5 20.7 4 21.5 4C22.9 4 24 5.1 24 6.5C24 8.8 20 12 20 12Z" fill="white"/>
         </svg>
-        <div>
+        <div class="brand-text-wrap">
           <div class="brand-title">Pawarta.Id</div>
           <div class="brand-sub">Wedding Moments</div>
         </div>
@@ -43,14 +43,14 @@
         <a href="#home" class="active">Home</a>
         <a href="#gallery">Gallery</a>
         <a href="#info">Event Info</a>
-        <button class="btn-scarlet" onclick="document.getElementById('gallery').scrollIntoView()">
+        <button class="btn-scarlet nav-cta-btn" type="button" onclick="document.getElementById('gallery').scrollIntoView()">
           Open Gallery &rarr;
         </button>
       </div>
     </nav>
 
     <div class="hero-container">
-      <div>
+      <div class="hero-text-col">
         <div class="event-pill reveal-1">
           <span class="pulse-dot"></span>
           <span id="eventBadgeTitle">Our Wedding Event</span>
@@ -87,12 +87,9 @@
 
     <!-- Lapisan Awan Putih Berlapis Bergerak Paralaks + Aksen Pita Merah Scarlet -->
     <svg class="cloud-floor" viewBox="0 0 1440 150" fill="none" preserveAspectRatio="none">
-      <!-- Lapisan Awan Belakang -->
       <path class="cloud-back" d="M-40 105C60 55 170 68 260 98C350 42 470 48 560 92C650 38 780 42 870 92C970 42 1100 48 1190 95C1280 58 1390 68 1480 105V150H-40V105Z" fill="rgba(255,255,255,0.58)"/>
-      <!-- Aksen Pita Merah Scarlet di Sudut Kiri & Kanan Bawah -->
       <path class="ribbon-left" d="M-20 125C65 102 155 112 245 142L190 150H-20V125Z" fill="#EF233C"/>
       <path class="ribbon-right" d="M1460 120C1365 98 1275 112 1185 144L1240 150H1460V120Z" fill="#EF233C"/>
-      <!-- Lapisan Awan Depan -->
       <path class="cloud-front" d="M-40 122C90 78 210 88 320 116C420 68 550 74 650 116C760 68 890 74 1000 116C1120 74 1280 84 1480 120V150H-40V122Z" fill="#FFFFFF"/>
     </svg>
   </header>
@@ -113,7 +110,7 @@
             <circle cx="12" cy="13" r="4"/>
           </svg>
         </div>
-        <div>
+        <div class="action-tile-text">
           <span class="tile-title">Ambil Foto Langsung</span>
           <span class="tile-sub">Buka kamera HP & jepret momen</span>
         </div>
@@ -128,14 +125,14 @@
             <path d="M21 15l-5-5L5 21"/>
           </svg>
         </div>
-        <div>
+        <div class="action-tile-text">
           <span class="tile-title">Upload dari Galeri</span>
           <span class="tile-sub" id="quotaHintText">Sisa kuota: 3 foto</span>
         </div>
       </button>
 
       <!-- Tombol 3: View Gallery (Merah Scarlet) -->
-      <button class="btn-scarlet" type="button" onclick="document.getElementById('gallery').scrollIntoView()">
+      <button class="btn-scarlet action-view-btn" type="button" onclick="document.getElementById('gallery').scrollIntoView()">
         View Gallery &rarr;
       </button>
     </div>
@@ -155,7 +152,7 @@
             <circle cx="12" cy="13" r="4"/>
           </svg>
         </div>
-        <div>
+        <div class="hl-text">
           <strong class="hl-title">Our Moments</strong>
           <span class="hl-sub">Captured with love</span>
         </div>
@@ -167,7 +164,7 @@
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
         </div>
-        <div>
+        <div class="hl-text">
           <strong class="hl-title">Your Presence</strong>
           <span class="hl-sub">Makes it special</span>
         </div>
@@ -180,7 +177,7 @@
             <path d="M21 15l-5-5L5 21"/>
           </svg>
         </div>
-        <div>
+        <div class="hl-text">
           <strong class="hl-title">Last Forever</strong>
           <span class="hl-sub">Auto-sync Google Drive</span>
         </div>
@@ -200,7 +197,7 @@
   <!-- LIVE GALLERY GRID -->
   <main class="gallery-section scroll-reveal" id="gallery">
     <div class="gallery-toolbar">
-      <div>
+      <div class="gallery-title-group">
         <div class="live-indicator-row">
           <span class="live-dot-scarlet"></span>
           <h2 class="gallery-heading">Live Wedding Gallery</h2>
@@ -218,24 +215,39 @@
     <div class="masonry-grid" id="galleryGrid"></div>
   </main>
 
+  <!-- TOMBOL KAMERA POPUP MELAYANG (FLOATING CAMERA FAB) -->
+  <div class="floating-cam-dock" id="floatingCamDock">
+    <div class="cam-popup-bubble" id="camPopupBubble">
+      <span>Jepret Momen Langsung!</span>
+      <button type="button" class="bubble-close" aria-label="Tutup tip" onclick="document.getElementById('camPopupBubble').style.display='none'">&times;</button>
+    </div>
+
+    <button type="button" class="fab-camera-btn" id="fabCameraBtn" aria-label="Buka Kamera Langsung" onclick="document.getElementById('btnCamera').click()">
+      <span class="fab-pulse-ring"></span>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
+      </svg>
+      <span class="fab-cam-label">Foto Langsung</span>
+    </button>
+  </div>
+
   <!-- FOOTER BRAND PAWARTA.ID -->
   <footer class="pawarta-footer">
-    <!-- Wave Top Awan -->
     <svg class="footer-wave" viewBox="0 0 1440 70" fill="none" preserveAspectRatio="none">
       <path d="M0 0H1440V32C1320 65 1180 65 1060 36C940 8 810 8 690 38C570 68 430 68 310 38C190 8 80 12 0 35V0Z" fill="#FFFFFF"/>
     </svg>
 
     <div class="footer-inner">
       <div class="footer-grid">
-        <!-- Kolom 1: Identitas Brand -->
         <div class="footer-brand-col">
-          <a href="#home" class="brand">
+          <a href="#home" class="brand footer-brand-link">
             <svg width="38" height="38" viewBox="0 0 40 40" fill="none">
               <circle cx="15" cy="23" r="9" stroke="white" stroke-width="2.5"/>
               <circle cx="25" cy="23" r="9" stroke="white" stroke-width="2.5"/>
               <path class="brand-heart" d="M20 12C20 12 16 8.8 16 6.5C16 5.1 17.1 4 18.5 4C19.3 4 20 4.5 20 4.5C20 4.5 20.7 4 21.5 4C22.9 4 24 5.1 24 6.5C24 8.8 20 12 20 12Z" fill="white"/>
             </svg>
-            <div>
+            <div class="brand-text-wrap">
               <div class="brand-title">Pawarta.Id</div>
               <div class="brand-sub">Shared Event QR Gallery</div>
             </div>
@@ -249,8 +261,7 @@
           </div>
         </div>
 
-        <!-- Kolom 2: Navigasi Cepat -->
-        <div>
+        <div class="footer-nav-col">
           <h4 class="footer-heading">Navigasi Acara</h4>
           <ul class="footer-links">
             <li><a href="#home">Beranda Utama</a></li>
@@ -260,8 +271,7 @@
           </ul>
         </div>
 
-        <!-- Kolom 3: Info Brand & Pemesanan -->
-        <div>
+        <div class="footer-cta-col">
           <h4 class="footer-heading">Ingin Pakai untuk Acaramu?</h4>
           <p class="footer-cta-text">
             Hadirkan pengalaman berbagi foto instan di setiap meja tamu undangan pernikahanmu bersama <strong>Pawarta.Id</strong>.

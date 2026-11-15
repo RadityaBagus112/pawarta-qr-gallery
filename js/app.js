@@ -27,9 +27,11 @@ let currentEventConfig = {
 };
 let preparedPhotos = null;
 
-// Elemen DOM
+// Elemen DOM Utama
 const cameraFlash = document.getElementById("cameraFlash");
 const btnCamera = document.getElementById("btnCamera");
+const fabCameraBtn = document.getElementById("fabCameraBtn");
+const camPopupBubble = document.getElementById("camPopupBubble");
 const btnGalleryPicker = document.getElementById("btnGalleryPicker");
 const cameraInput = document.getElementById("cameraInput");
 const galleryInput = document.getElementById("galleryInput");
@@ -108,6 +110,16 @@ function updateQuotaUI(animatePop = false) {
   const isLocked = remaining <= 0 || !currentEventConfig.active;
   btnCamera.disabled = isLocked;
   btnGalleryPicker.disabled = isLocked;
+
+  if (fabCameraBtn) {
+    fabCameraBtn.disabled = isLocked;
+    fabCameraBtn.style.opacity = isLocked ? "0.55" : "1";
+    fabCameraBtn.style.pointerEvents = isLocked ? "none" : "auto";
+  }
+
+  if (camPopupBubble && isLocked) {
+    camPopupBubble.style.display = "none";
+  }
 }
 
 // 6. Dengarkan Konfigurasi Acara & Galeri Real-Time dari Firebase
