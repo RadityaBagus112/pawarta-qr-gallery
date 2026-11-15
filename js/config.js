@@ -27,3 +27,4 @@ export const APP_CONFIG = {
   // Default acara (jika dibuka tanpa parameter URL ?e=nama-acara)
   defaultEventSlug: "andi-sinta-2026"
 };
+
