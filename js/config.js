@@ -1,6 +1,6 @@
 // js/config.js
 export const APP_CONFIG = {
-  // 1. Konfigurasi Firebase Realtime Database (Nanti tinggal tempel dari Firebase Console)
+  // 1. Konfigurasi Firebase Realtime Database
   firebaseConfig: {
     apiKey: "AIzaSyC0mE9VRPgYvtf3GQd5sO3cWrioL6UTrhc",
     authDomain: "pawarta-gallery.firebaseapp.com",
@@ -11,10 +11,11 @@ export const APP_CONFIG = {
     appId: "1:490686223017:web:5b7446fb5049cdf4da0fb8"
   },
 
-  // 2. Endpoint Cloudflare Worker untuk upload ke R2 (Sudah terisi URL milikmu)
-  r2WorkerUrl: "https://pawarta-upload.businessraditya.workers.dev",
+  // 2. Konfigurasi Cloudinary
+  cloudinaryCloudName: "xq53gn5m",
+  cloudinaryUploadPreset: "pawarta_unsigned",
 
-  // 3. Endpoint Google Apps Script untuk Auto-Sync ke Google Drive (Sudah terisi URL milikmu)
+  // 3. Endpoint Google Apps Script untuk Auto-Sync ke Google Drive
   googleDriveWebhookUrl: "https://script.google.com/macros/s/AKfycbzEX4rro6kYMnpMMO5yQb4FYOyGWVNoBUgBUfo1NKEG9-n6Gm2Vpn7hs8ySiBdMPbs/exec",
 
   // 4. Aturan Paket Kuota Foto per Tamu
@@ -27,4 +28,3 @@ export const APP_CONFIG = {
   // Default acara (jika dibuka tanpa parameter URL ?e=nama-acara)
   defaultEventSlug: "andi-sinta-2026"
 };
-
